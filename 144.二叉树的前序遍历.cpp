@@ -46,3 +46,29 @@ class Solution {
             return  res;
         }
     };
+
+// 统一迭代法
+class Solution {
+    public:
+        vector<int> preorderTraversal(TreeNode* root) {
+            vector<int> res;
+            stack<TreeNode*> st;
+            TreeNode* cur = root;
+            // 防止空栈pop
+            if(cur!=NULL) st.push(cur);
+            while(!st.empty()){
+                cur = st.top();
+                st.pop();
+                if(cur != NULL){
+                    if(cur->right) st.push(cur->right);
+                    if(cur->left) st.push(cur->left);
+                    st.push(cur);
+                    st.push(NULL);
+                }else{
+                    res.push_back(st.top()->val);
+                    st.pop();
+                }
+            }
+            return res;
+        }
+    };
